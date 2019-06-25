@@ -21,7 +21,7 @@
 #ifndef _ONI_DRIVER_TYPES_H_
 #define _ONI_DRIVER_TYPES_H_
 
-#include <OniCTypes.h>
+#include "../OniCTypes.h"
 #include <stdarg.h>
 
 #define ONI_STREAM_PROPERTY_PRIVATE_BASE XN_MAX_UINT16
@@ -32,13 +32,6 @@ typedef struct
 	void* data;
 } OniGeneralBuffer;
 
-typedef struct
-{
-	OniFrame frame;
-	void* pDriverCookie;
-	void* pOpenNICookie;
-} OniDriverFrame;
-
 /////// DriverServices
 struct OniDriverServices
 {
@@ -46,6 +39,15 @@ struct OniDriverServices
 	void (ONI_CALLBACK_TYPE* errorLoggerAppend)(void* driverServices, const char* format, va_list args);
 	void (ONI_CALLBACK_TYPE* errorLoggerClear)(void* driverServices);
 	void (ONI_CALLBACK_TYPE* log)(void* driverServices, int severity, const char* file, int line, const char* mask, const char* message);
+};
+
+struct OniStreamServices
+{
+	void* streamServices;
+	int (ONI_CALLBACK_TYPE* getDefaultRequiredFrameSize)(void* streamServices);
+	OniFrame* (ONI_CALLBACK_TYPE* acquireFrame)(void* streamServices); // returns a frame with size corresponding to getRequiredFrameSize()
+	void (ONI_CALLBACK_TYPE* addFrameRef)(void* streamServices, OniFrame* pframe);
+	void (ONI_CALLBACK_TYPE* releaseFrame)(void* streamServices, OniFrame* pframe);
 };
 
 
