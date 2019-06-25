@@ -1,7 +1,7 @@
 Logger2
 =======
 
-Tool for logging RGB-D data from the ASUS Xtion Pro Live with OpenNI2
+Tool for logging RGB-D data from the Realsense D415 with OpenNI2
 
 Should build on Linux, MacOS and Windows. Haven't built on Windows yet though, so someone feel free try it out!
 
