@@ -171,7 +171,7 @@ MainWindow::MainWindow(int width, int height, int fps, bool tcp)
     logFolder.append("\\");
 #endif
 
-    logFolder.append("Kinect_Logs");
+    logFolder.append("Downloads");
 
     boost::filesystem::path p(logFolder.c_str());
     boost::filesystem::create_directory(p);
