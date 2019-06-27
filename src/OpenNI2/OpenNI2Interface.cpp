@@ -29,18 +29,15 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
     }
     else
     {
-        std::cout << "Pos 100 " << deviceURI << std::endl;
         rc = device.open(deviceURI);
         if (rc != openni::STATUS_OK)
         {
-            std::cout << "Pos 110 " << deviceURI << std::endl;
             errorText.append(openni::OpenNI::getExtendedError());
             openni::OpenNI::shutdown();
             initSuccessful = false;
         }
         else
         {
-            std::cout << "Pos 120 " << deviceURI << std::endl;
             openni::VideoMode depthMode;
             depthMode.setFps(fps);
             depthMode.setPixelFormat(openni::PIXEL_FORMAT_DEPTH_1_MM);
@@ -52,12 +49,10 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
             colorMode.setResolution(width, height);
 
             rc = depthStream.create(device, openni::SENSOR_DEPTH);
-            std::cout << "Pos 130 " << rc << std::endl;
             if (rc == openni::STATUS_OK)
             {
                 depthStream.setVideoMode(depthMode);
                 rc = depthStream.start();
-                std::cout << "Pos 140 " << rc << std::endl;
                 if (rc != openni::STATUS_OK)
                 {
                     errorText.append(openni::OpenNI::getExtendedError());
@@ -72,12 +67,10 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
             }
 
             rc = rgbStream.create(device, openni::SENSOR_COLOR);
-            std::cout << "Pos 150 " << rc << std::endl;
             if (rc == openni::STATUS_OK)
             {
                 rgbStream.setVideoMode(colorMode);
                 rc = rgbStream.start();
-                std::cout << "Pos 160 " << rc << std::endl;
                 if (rc != openni::STATUS_OK)
                 {
                     errorText.append(openni::OpenNI::getExtendedError());
@@ -100,7 +93,6 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
 
             if(initSuccessful)
             {
-                std::cout << "Pos 170: InitSuccess!" << std::endl;
                 //For printing out
                 formatMap[openni::PIXEL_FORMAT_DEPTH_1_MM] = "1mm";
                 formatMap[openni::PIXEL_FORMAT_DEPTH_100_UM] = "100um";
@@ -131,8 +123,6 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
                     frameBuffers[i] = std::pair<std::pair<uint8_t *, uint8_t *>, int64_t>(std::pair<uint8_t *, uint8_t *>(newDepth, newImage), 0);
                 }
 
-
-                std::cout << "Pos 180 " << rc << std::endl;
                 rgbCallback = new RGBCallback(lastRgbTime,
                                               latestRgbIndex,
                                               rgbBuffers);
@@ -143,18 +133,15 @@ OpenNI2Interface::OpenNI2Interface(int inWidth, int inHeight, int fps)
                                                   rgbBuffers,
                                                   frameBuffers);
 
-                std::cout << "Pos 181 " << rc << std::endl;
                 depthStream.setMirroringEnabled(false);
                 rgbStream.setMirroringEnabled(false);
-                std::cout << "Pos 182 " << rc << std::endl;
+
                 device.setDepthColorSyncEnabled(true);
                 device.setImageRegistrationMode(openni::IMAGE_REGISTRATION_DEPTH_TO_COLOR);
-                std::cout << "Pos 183 " << rc << std::endl;
+                /* disabled for file input
                 //setAutoExposure(false);
-                std::cout << "Pos 184 " << rc << std::endl;
-                //setAutoWhiteBalance(false);
+                //setAutoWhiteBalance(false); */
 
-                std::cout << "Pos 190 " << rc << std::endl;
                 rgbStream.addNewFrameListener(rgbCallback);
                 depthStream.addNewFrameListener(depthCallback);
             }
