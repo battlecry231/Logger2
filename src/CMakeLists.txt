@@ -19,6 +19,7 @@ ENDIF (UNIX)
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/OpenNI2/Include)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
+INCLUDE_DIRECTORIES("/usr/include/qt4/QtTest/")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
@@ -27,7 +28,6 @@ set(BOOST_ALL_DYN_LINK ON)   # force dynamic linking for all libraries
 
 set(CMAKE_CXX_FLAGS "-O3 -msse2 -msse3")
 
-#Magic hack to check if host is 32 or 64 bit
 if(APPLE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/OpenNI2/libOpenNI2.dylib ${CMAKE_CURRENT_BINARY_DIR}/libOpenNI2.dylib COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/OpenNI2/libOniFile.dylib ${CMAKE_CURRENT_BINARY_DIR}/OpenNI2/Drivers/libOniFile.dylib COPYONLY)
@@ -54,6 +54,7 @@ target_link_libraries(Logger2
                       ${Boost_LIBRARIES}
                       ${OpenCV_LIBS} 
                       ${QT_LIBRARIES}
+                      QtTest
                       boost_system
                       boost_filesystem
                       boost_thread

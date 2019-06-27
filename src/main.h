@@ -12,6 +12,7 @@
 #include <QApplication>
 #include <QString>
 #include <QPushButton>
+#include <QTest> // for testing
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>

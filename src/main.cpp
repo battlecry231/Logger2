@@ -392,6 +392,8 @@ void MainWindow::timerCallback()
                 painter->setFont(QFont("Arial", 30));
                 painter->drawText(10, 50, "Starting stream...");
                 depthLabel->setPixmap(QPixmap::fromImage(depthImage));
+                // Automatically start recording
+                QTest::mouseClick(startStop, Qt::LeftButton);
             }
 
             return;
