@@ -3,11 +3,11 @@ Logger2
 
 Tool for logging RGB-D data from the Realsense D415 with OpenNI2
 
-Should build on Linux, MacOS and Windows. Haven't built on Windows yet though, so someone feel free try it out!
+Should build on Linux.
 
 Requires CMake, Boost, Qt4, OpenNI2, ZLIB and OpenCV. 
 
-Grabs RGB and depth frames which can then be compressed (lossless ZLIB on depth and JPEG on RGB) or uncompressed. 
+Grabs RGB and depth frames from file which can then be compressed (lossless ZLIB on depth and JPEG on RGB) or uncompressed. 
 
 Frames can be cached in memory and written out when logging is finished, or streamed to disk. 
 
